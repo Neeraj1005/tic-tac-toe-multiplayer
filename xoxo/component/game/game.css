@@ -1,0 +1,222 @@
+.mainBox {
+    width: fit-content;
+    height: 100vh;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.headerContainer {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.gameContainer {
+    height: 75%;
+}
+
+.mainBox h1 {
+    color: #eee;
+}
+
+.mainBox button {
+    padding: 8px 12px;
+    margin: 25px;
+    background: transparent;
+    border: 2px solid #eee;
+    color: #eee;
+    width: 100px;
+    border-radius: 5px;
+    transition: 0.2s;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.mainBox button:hover {
+    background: #eee;
+    color: #222;
+}
+
+.mainBox .gameContainer .game {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.turn {
+    display: flex;
+    justify-content: center;
+    margin: 15px auto;
+    width: fit-content;
+    position: relative;
+    border-radius: 10px;
+}
+
+.turn .square,
+.winner .square {
+    width: 70px;
+    height: 70px;
+    pointer-events: none;
+    border-color: transparent;
+}
+
+.turn .square span.x::before,
+.turn .square span.x::after {
+    background: #222;
+    transition: 0.2s;
+}
+
+.turn .square span.o {
+    transition: 0.2s;
+    border-color: #222;
+}
+
+.turn::after {
+    position: absolute;
+    content: "";
+    width: 50%;
+    height: 100%;
+    top: 0;
+    background: #49ff58;
+    border-radius: 9px;
+    z-index: -1;
+    transition: 0.2s;
+}
+
+.turn.left::after {
+    left: 0;
+}
+
+.turn.left span.o {
+    border-color: #eee;
+}
+
+.turn.right span.x::before,
+.turn.right span.x::after {
+    background: #eee;
+}
+
+.turn.right::after {
+    left: 50%;
+}
+
+.winner {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.winner .text {
+    background: #111;
+    width: 70%;
+    max-width: 400px;
+    height: 300px;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.winner .text h2 {
+    font-size: 2.5em;
+    margin: 15px 0;
+    color: #eee;
+}
+
+.winner .win {
+    margin: 0 auto;
+    width: fit-content;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    display: flex;
+    gap: 15px;
+}
+
+.textClass {
+    color: #FFFFFF;
+    font-size: 18px !important;
+}
+
+.textName {
+    background-color: green;
+}
+
+.highlight-container,
+.highlight {
+    position: relative;
+}
+
+.highlight-container {
+    display: inline-block;
+}
+
+.highlight-container:before {
+    content: " ";
+    display: block;
+    height: 92%;
+    width: 100%;
+    margin-left: -3px;
+    margin-right: -3px;
+    position: absolute;
+    background: #ffd500;
+    transform: rotate(2deg);
+    top: -1px;
+    left: -1px;
+    border-radius: 20% 25% 20% 24%;
+    padding: 10px 3px 3px 10px;
+}
+
+.circle-sketch-highlight {
+    position: relative;
+    left: 0.5em;
+    font-family: Libre Franklin;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.circle-sketch-highlight:before {
+    content: "";
+    z-index: -1;
+    left: -0.5em;
+    top: -0.1em;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #ef8c22;
+    position: absolute;
+    border-right-color: transparent;
+    width: 100%;
+    height: 1em;
+    transform: rotate(2deg);
+    opacity: 0.7;
+    border-radius: 50%;
+    padding: 0.1em 0.25em;
+}
+
+.circle-sketch-highlight:after {
+    content: "";
+    z-index: -1;
+    left: -0.5em;
+    top: 0.1em;
+    padding: 0.1em 0.25em;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #ef8c22;
+    border-left-color: transparent;
+    border-top-color: transparent;
+    position: absolute;
+    width: 100%;
+    height: 1em;
+    transform: rotate(-1deg);
+    opacity: 0.7;
+    border-radius: 50%;
+}
