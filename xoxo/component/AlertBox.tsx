@@ -1,8 +1,8 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-type AlertTypeMessage = {
-  message?: string;
+export type AlertTypeMessage = {
+  message?: string | null;
 };
 
 function AlertBox({ message }: AlertTypeMessage) {

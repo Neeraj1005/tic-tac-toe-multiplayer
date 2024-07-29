@@ -30,10 +30,18 @@ export class MyRoom extends Room<MyRoomState> {
     this.onMessage("boxClicked", (client, data) => {
       console.log("box clicked>>>>>>>>>>>>>>", data);
 
-      if (data.myPiece == 1) {
-        this.state.board[data.position] = "o";
+      if (this.state.board[data.position] === "") {
+        if (data.myPiece == 1) {
+          this.state.board[data.position] = "o";
+        } else {
+          this.state.board[data.position] = "x";
+        }
       } else {
-        this.state.board[data.position] = "x";
+        console.log("Position already filled. Choose another position.");
+        this.broadcast("notAllowed", {
+          message: "Position already filled. Choose another position.",
+        });
+        return;
       }
 
       const winner = this.state.checkWinner();

@@ -18,6 +18,7 @@ function GamePlay({ room, userProfile, playerPieces }: any) {
   const [oppPiece, setOppPiece] = useState<any>(null);
 
   const [alertMessage, setAlertMessage] = useState<boolean>(false);
+  const [alertMessageText, setAlertMessageText] = useState<string | null>("");
 
   const [playerTurn, setPlayerTurn] = useState<number>(0);
 
@@ -45,19 +46,22 @@ function GamePlay({ room, userProfile, playerPieces }: any) {
         console.log("client is left>>>>>>>>>>>", message);
       });
     } else {
-      setAlertMessage(true);
-      setTimeout(() => {
-        setAlertMessage(false);
-      }, 2500);
+      showAlertBox("");
     }
+  };
+
+  const showAlertBox = (message: string | null) => {
+    setAlertMessageText(message);
+    setAlertMessage(true);
+    setTimeout(() => {
+      setAlertMessage(false);
+    }, 2500);
   };
 
   const resetGame = () => {
     room.send("resetClicked", {
       board: Array(9).fill(""),
     });
-    // setSquares(Array(9).fill(""));
-    // setTurn("x");
   };
 
   useEffect(() => {
@@ -88,6 +92,10 @@ function GamePlay({ room, userProfile, playerPieces }: any) {
         setSquares(message.board);
         setWinner(null);
       });
+
+      room.onMessage("notAllowed", (data: any) => {
+        showAlertBox(data.message);
+      });
     }
   }, [room, playerPieces, playerTurn, userSessId, squares, turn]);
 
@@ -101,9 +109,7 @@ function GamePlay({ room, userProfile, playerPieces }: any) {
         </div>
         <div className="highlight-container">
           <span className="highlight">
-            {playerTurn === myPiece
-              ? "Your Turn"
-              : "Opponent's Turn"}
+            {playerTurn === myPiece ? "Your Turn" : "Opponent's Turn"}
           </span>
         </div>
         <div>
@@ -129,7 +135,7 @@ function GamePlay({ room, userProfile, playerPieces }: any) {
         <WinnerBox resetGame={resetGame} winner={winner} />
       </div>
 
-      {alertMessage && <AlertBox />}
+      {alertMessage && <AlertBox message={alertMessageText} />}
     </div>
   );
 }
