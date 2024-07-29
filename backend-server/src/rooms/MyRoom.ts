@@ -15,14 +15,14 @@ export class MyRoom extends Room<MyRoomState> {
     this.setState(new MyRoomState());
     console.log(`game room is created you room id is: ${this.roomId}`, options);
 
-    this.onMessage("addPlayer", (client, message) => {
-      const player = new Player();
-      player.sessionId = client.sessionId;
-      player.userName = message.name;
-      player.userId = options.userId;
-
-      this.state.players.push(player);
-    });
+    // this.onMessage("addPlayer", (client, message) => {
+    //   const player = new Player();
+    //   player.sessionId = client.sessionId;
+    //   player.userName = message.name;
+    //   player.userId = options.userId;
+    //   player.isIconX = true;
+    //   this.state.players.push(player);
+    // });
 
     this.broadcast("playerJoined", this.state.players);
 
@@ -96,6 +96,12 @@ export class MyRoom extends Room<MyRoomState> {
     player.userName = options.userName;
     player.sessionId = client.sessionId;
     player.userId = options.userId;
+
+    if (this.state.players.length < 1) {
+      player.isIconX = true;
+    } else {
+      player.isIconX = false;
+    }
 
     // Add the new Player to the room state
     this.state.players.push(player);

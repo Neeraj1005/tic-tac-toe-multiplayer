@@ -1,14 +1,16 @@
 "use client";
 
-import Button from "@/component/Button";
-import Square from "@/component/Square";
 import { useEffect, useState } from "react";
 import "./game.css";
 import WinnerBox from "@/component/WinnerBox";
 import GameplayBoard from "@/component/GameplayBoard";
 import AlertBox from "../AlertBox";
+import Image from "next/image";
+import xIcon from "../../public/icons/x.png";
+import oIcon from "../../public/icons/o.png";
+import arrowIcon from "../../public/icons/arrow.png";
 
-function GamePlay({ room, userProfile, playerPieces }: any) {
+function GamePlay({ room, userProfile, playerPieces, players }: any) {
   const [squares, setSquares] = useState(Array(9).fill(""));
   const [turn, setTurn] = useState("x");
   const [winner, setWinner] = useState<any>(null);
@@ -100,9 +102,9 @@ function GamePlay({ room, userProfile, playerPieces }: any) {
   }, [room, playerPieces, playerTurn, userSessId, squares, turn]);
 
   return (
-    <div className="mainBox">
-      <div className="headerContainer">
-        <div>
+    <div className="gameBox">
+      <div className="leftContainer">
+        {/* <div>
           <h1 className="circle-sketch-highlight">
             XOXO- <span className="">{myPiece === 0 ? "x" : "o"}</span>
           </h1>
@@ -119,23 +121,50 @@ function GamePlay({ room, userProfile, playerPieces }: any) {
               <span className="">{userProfile?.userName}</span>
             </span>
           </span>
+        </div> */}
+        <div className="playerBox">
+          {players &&
+            players.map((dataPlayer: any, key: number) => (
+              <div className="playerInfo" key={dataPlayer.userId}>
+                <div className="turnIconBox">
+                  {playerTurn == key && (
+                    <Image
+                      src={arrowIcon}
+                      width={12}
+                      height={12}
+                      alt="arrow icon"
+                    />
+                  )}
+                </div>
+                <div className={`playerName ${dataPlayer.sessionId == userSessId ? 'highlight-container' : ''}`}>
+                  <h4 className={`${dataPlayer.sessionId == userSessId ? 'highlight' : ''}`}>
+                    {dataPlayer.sessionId == userSessId
+                      ? "You"
+                      : dataPlayer.userName}
+                  </h4>
+                </div>
+                <div className="playerIcon">
+                  <Image
+                    src={dataPlayer.isIconX ? xIcon : oIcon}
+                    width={22}
+                    height={22}
+                    alt="icon of the avatar 0"
+                  />
+                </div>
+              </div>
+            ))}
         </div>
       </div>
-
-      {/* <Button resetGame={resetGame} /> */}
 
       <div className="gameContainer">
-        <GameplayBoard updateSquares={gameboxClick} squares={squares} />
-
-        <div className={`turn ${playerTurn == 0 ? "left" : "right"}`}>
-          <Square clsName="x" />
-          <Square clsName="o" />
+        <div className="gridBox">
+          <GameplayBoard updateSquares={gameboxClick} squares={squares} />
         </div>
-
         <WinnerBox resetGame={resetGame} winner={winner} />
+        {alertMessage && <AlertBox message={alertMessageText} />}
       </div>
 
-      {alertMessage && <AlertBox message={alertMessageText} />}
+      <div className="rightContainer"></div>
     </div>
   );
 }

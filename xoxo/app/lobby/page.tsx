@@ -22,6 +22,7 @@ type UserProfile = {
 export default function Lobby() {
   const [room, setRoom] = useState<any>();
   const [players, setPlayers] = useState<Player[]>([]);
+  const [playerList, setPlayerList] = useState<any>([]);
   const [startGame, setStartGame] = useState<boolean>(false);
   const [playBtn, setPlayBtn] = useState<boolean>(true);
   const [countdown, setCountdown] = useState<number>(3);
@@ -84,10 +85,10 @@ export default function Lobby() {
       room.onMessage("gameStart", (message: any) => {
         setPlayerPieces(message.playerPieces);
 
+        setPlayerList(message.players);
         const countdownInterval = setInterval(() => {
           setCountdown((prevCountdown) => {
             if (prevCountdown === 0) {
-              
               clearInterval(countdownInterval);
               setStartGame(true);
               return 0;
@@ -100,17 +101,18 @@ export default function Lobby() {
     }
   }, [room]);
 
-  return (
-    <main>
-      {playBtn ? (
-        <div className="mainBox">
-          <button onClick={() => handleRoom()}>Play</button>
-        </div>
-      ) : startGame ? (
-        <GamePlay room={room} userProfile={currProfile} playerPieces={playerPieces} />
-      ) : (
-        <WaitingPlayer players={players} countdown={countdown} />
-      )}
-    </main>
+  return playBtn ? (
+    <div className="lobbyBox">
+      <button className="button-1" onClick={() => handleRoom()}>Play</button>
+    </div>
+  ) : startGame ? (
+    <GamePlay
+      room={room}
+      userProfile={currProfile}
+      playerPieces={playerPieces}
+      players={playerList}
+    />
+  ) : (
+    <WaitingPlayer players={players} countdown={countdown} />
   );
 }

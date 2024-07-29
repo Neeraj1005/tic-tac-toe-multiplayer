@@ -7,6 +7,9 @@ class Player extends Schema {
   @type("string")
   sessionId: string;
 
+  @type("boolean")
+  isIconX: boolean;
+
   @type("string")
   userId: string;
 }

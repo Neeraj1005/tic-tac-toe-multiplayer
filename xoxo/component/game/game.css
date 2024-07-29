@@ -1,27 +1,78 @@
-.mainBox {
-    width: fit-content;
-    height: 100vh;
-    margin: 40px auto;
-    text-align: center;
+.gameBox {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
-.headerContainer {
-    height: 20%;
+.leftContainer {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    height: 100%;
+    width: 20%;
 }
 
 .gameContainer {
-    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60%;
 }
 
-.mainBox h1 {
+.rightContainer {
+    height: 100%;
+    width: 20%;
+}
+
+.playerBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+    width: 100%;
+}
+
+.playerBox .playerInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 70%;
+    height: 100%;
+}
+
+.playerInfo .turnIconBox {
+    width: 20%;
+}
+
+.playerInfo .playerName {
+    width: 60%;
+}
+
+.playerInfo .playerIcon {
+    width: 20%;
+}
+
+.playerName h4 {
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+.highlight-container h4 {
+    color: #000000;
+    font-size: 16px;
+}
+
+.gameBox h1 {
     color: #eee;
 }
 
-.mainBox button {
+.gameBox button {
     padding: 8px 12px;
     margin: 25px;
     background: transparent;
@@ -34,12 +85,12 @@
     cursor: pointer;
 }
 
-.mainBox button:hover {
+.gameBox button:hover {
     background: #eee;
     color: #222;
 }
 
-.mainBox .gameContainer .game {
+.gameBox .gameContainer .game {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
@@ -164,7 +215,7 @@
     content: " ";
     display: block;
     height: 92%;
-    width: 100%;
+    width: 80%;
     margin-left: -3px;
     margin-right: -3px;
     position: absolute;
@@ -220,3 +271,4 @@
     opacity: 0.7;
     border-radius: 50%;
 }
+
